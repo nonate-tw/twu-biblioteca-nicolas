@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 
 import com.twu.biblioteca.pojos.Book;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -9,6 +10,13 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class BibliotecaTest {
+
+    private BooksService booksService;
+
+    @Before
+    public void setup() {
+        booksService = new BooksService();
+    }
 
     @Test
     public void welcomeMessageTest() {
@@ -21,7 +29,7 @@ public class BibliotecaTest {
     @Test
     public void listOfBooks() {
 
-        List<Book> booksList = BibliotecaApp.booksList();
+        List<Book> booksList = booksService.getBookList();
 
         assertEquals(11, booksList.size());
     }
