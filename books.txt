@@ -1,11 +1,11 @@
-Agile Analytics
-Agile Estimating and Planning
-Agile Experience Design
-Building Microservices
-Clean Code
-Coaching Agile Teams
-Domain-driven Design
-Lean Enterprise
-Lean UX
-Refactoring
-ReWork
+Agile Analytics_Ken Collier_2012
+Agile Estimating and Planning_Mike Cohn_2006
+Agile Experience Design_Lindsay Ratcliffe,Marc McNeill_2012
+Building Microservices_Sam Newman_2015
+Clean Code_Robert C. Martin_2009
+Coaching Agile Teams_Lyssa Adkins_2010
+Domain-driven Design_Eric Evans_2004
+Lean Enterprise_Jez Humble,Joanne Molesky,Barry O'Reilly_2015
+Lean UX_Jeff Gothelf,Josh Seiden_2016
+Refactoring_Martin Fowler,Kent Beck_1999
+ReWork_Jason Fried,David Heinemeier Hansson_2010

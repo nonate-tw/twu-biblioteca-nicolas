@@ -34,4 +34,25 @@ public class BibliotecaTest {
         assertEquals(11, booksList.size());
     }
 
+    @Test
+    public void authorOfFirstBookIsKenColler(){
+
+        List<Book> bookList = booksService.getBookList();
+
+        String author = bookList.get(0).getAuthor();
+
+        assertEquals("Ken Collier", author);
+
+    }
+
+    @Test
+    public void yearPublishedOfFirstBookIs2012(){
+
+        List<Book> bookList = booksService.getBookList();
+
+        int year = bookList.get(0).getYear();
+
+        assertEquals(2012, year);
+    }
+
 }
