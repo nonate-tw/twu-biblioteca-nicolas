@@ -5,11 +5,13 @@ public class Book {
     private String name;
     private String author;
     private int year;
+    private boolean borrowed;
 
     public Book(String name, String author, int year) {
         this.name = name;
         this.author = author;
         this.year = year;
+        this.borrowed = false;
     }
 
     public String getName() {
@@ -34,5 +36,13 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public void setBorrowed(boolean borrowed) {
+        this.borrowed = borrowed;
+    }
+
+    public boolean isBorrowed() {
+        return borrowed;
     }
 }

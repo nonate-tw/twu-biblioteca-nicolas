@@ -11,12 +11,6 @@ import static org.junit.Assert.assertEquals;
 
 public class BibliotecaTest {
 
-    private BooksService booksService;
-
-    @Before
-    public void setup() {
-        booksService = new BooksService();
-    }
 
     @Test
     public void welcomeMessageTest() {
@@ -24,14 +18,6 @@ public class BibliotecaTest {
         String message = BibliotecaApp.welcomeMessage();
 
         assertEquals("Welcome to Biblioteca!", message);
-    }
-
-    @Test
-    public void listOfBooks() {
-
-        List<Book> booksList = booksService.getBookList();
-
-        assertEquals(11, booksList.size());
     }
 
 
@@ -43,26 +29,5 @@ public class BibliotecaTest {
         assertEquals(120, lines.length());
     }
 
-
-    @Test
-    public void authorOfFirstBookIsKenColler(){
-
-        List<Book> bookList = booksService.getBookList();
-
-        String author = bookList.get(0).getAuthor();
-
-        assertEquals("Ken Collier", author);
-
-    }
-
-    @Test
-    public void yearPublishedOfFirstBookIs2012(){
-
-        List<Book> bookList = booksService.getBookList();
-
-        int year = bookList.get(0).getYear();
-
-        assertEquals(2012, year);
-    }
 
 }
