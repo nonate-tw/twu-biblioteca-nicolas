@@ -24,6 +24,7 @@ public class BibliotecaApp {
             try{
                 option = scanner.nextInt();
             }catch (InputMismatchException e){
+                option = 0;
                 System.out.println("Select a valid option!");
             }
 
@@ -32,12 +33,15 @@ public class BibliotecaApp {
                 case 1:
                     booksService.printBooksList();
                     break;
+                case 2:
+                    System.out.println("Good Bye!");
+                    break;
                 default:
                     System.out.println("Select a valid option!");
                     break;
             }
 
-        }while(option != -1);
+        }while(option != 2);
     }
 
     public static String welcomeMessage() {
@@ -54,6 +58,7 @@ public class BibliotecaApp {
         menu += String.format("%-20s%s%n","","MENU");
         menu += String.format("%s%n",lines);
         menu += String.format("%-15s%s%n","","1.- List Books");
+        menu += String.format("%-15s%s%n","","2.- Quit");
         menu += String.format("%s%n",lines);
 
         menu += String.format("%s", "choose an option > ");
