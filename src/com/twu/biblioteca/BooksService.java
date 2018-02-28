@@ -71,9 +71,14 @@ public class BooksService {
             Scanner scanner = new Scanner(System.in);
             option = scanner.nextInt();
 
-            if (option > 0 && option < bookList.size()){
+            if (option > 0 && option <= bookList.size()){
                 checkout(bookList.get(option-1));
                 break;
+            }else{
+                if (option != 0){
+                    unsuccessfulCheckoutMessage();
+                    break;
+                }
             }
 
 
@@ -100,5 +105,9 @@ public class BooksService {
 
     public void successfulCheckoutMessage() {
         System.out.printf("%n%-10s%s%n", "", "Thank you! Enjoy the book");
+    }
+
+    public void unsuccessfulCheckoutMessage() {
+        System.out.printf("%n%-10s%s%n", "", "That book is not available.");
     }
 }

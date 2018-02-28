@@ -68,12 +68,12 @@ public class BibliotecaApp {
 
 
     public static String getLines(int n) {
-        String lines = "";
+        StringBuilder lines = new StringBuilder();
 
         for (int i = 0; i < n; i++) {
-            lines += "=";
+            lines.append("=");
         }
 
-        return lines;
+        return lines.toString();
     }
 }
