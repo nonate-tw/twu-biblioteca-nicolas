@@ -34,6 +34,16 @@ public class BibliotecaTest {
         assertEquals(11, booksList.size());
     }
 
+
+    @Test
+    public void linesMenuTest() {
+
+        String lines = BibliotecaApp.getLines(120);
+
+        assertEquals(120, lines.length());
+    }
+
+
     @Test
     public void authorOfFirstBookIsKenColler(){
 
