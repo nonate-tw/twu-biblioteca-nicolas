@@ -1,0 +1,11 @@
+Agile Analytics
+Agile Estimating and Planning
+Agile Experience Design
+Building Microservices
+Clean Code
+Coaching Agile Teams
+Domain-driven Design
+Lean Enterprise
+Lean UX
+Refactoring
+ReWork
