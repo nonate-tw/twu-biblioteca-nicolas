@@ -18,7 +18,7 @@ public class BooksService {
 
     public List<Book> getBookList() {
 
-        Scanner scan = null;
+        Scanner scan;
         try {
 
             scan = new Scanner(new File("books.txt"));
@@ -44,48 +44,54 @@ public class BooksService {
         if (bookList.isEmpty())
             getBookList();
 
-        String lines = "";
-        for (int i = 0; i < 120; i++) {
-            lines += "=";
-        }
-
-        int option = -1;
+        boolean result;
         do{
 
-            System.out.println(lines);
-            System.out.printf("%-60s%s%n", "" ,"List of Books");
-            System.out.println(lines);
-            System.out.printf("%-53s%-50s%-50s%n","Name","Author","Year Published");
-            System.out.println(lines);
+            System.out.print(bookListGenerate());
+            result = menuOptions();
 
-            int i = 1;
-            for (Book book: bookList){
+        }while(!result);
+    }
 
-                System.out.printf("%02d-%-50s%-50s%d%n",i ,book.getName(), book.getAuthor(), book.getYear());
-                i++;
-            }
-            System.out.println(lines);
+    private String bookListGenerate() {
+        String lines = MenuDraw.getLines(120);
+        String bookListStr = "";
+        bookListStr += String.format("%s%n",lines);
+        bookListStr += String.format("%-60s%s%n", "" ,"List of Books");
+        bookListStr += String.format("%s%n",lines);
+        bookListStr += String.format("%-53s%-50s%-50s%n","Name","Author","Year Published");
+        bookListStr += String.format("%s%n",lines);
 
-            System.out.print("Borrow a book (enter the number, 0 to return): ");
+        int i = 1;
+        for (Book book: bookList){
 
-            Scanner scanner = new Scanner(System.in);
-            option = scanner.nextInt();
+            bookListStr += String.format("%02d-%-50s%-50s%d%n",i ,book.getName(), book.getAuthor(), book.getYear());
+            i++;
+        }
+        bookListStr += String.format("%s%n",lines);
 
-            if (option > 0 && option <= bookList.size()){
-                checkout(bookList.get(option-1));
-                break;
+        bookListStr += String.format("%s", "Borrow a book (enter the number, 0 to return): ");
+
+        return bookListStr;
+    }
+
+
+    private boolean menuOptions() {
+        int option;
+        Scanner scanner = new Scanner(System.in);
+        option = scanner.nextInt();
+
+        if (option > 0 && option <= bookList.size()){
+            checkout(bookList.get(option-1));
+            return true;
+        }else{
+            if (option != 0){
+                unsuccessfulCheckoutMessage();
             }else{
-                if (option != 0){
-                    unsuccessfulCheckoutMessage();
-                    break;
-                }
+                return true;
             }
-
-
-        }while(option != 0);
-
-
-
+        }
+        return false;
     }
 
 
@@ -103,11 +109,12 @@ public class BooksService {
         return borrowedList;
     }
 
-    public void successfulCheckoutMessage() {
+    private void successfulCheckoutMessage() {
         System.out.printf("%n%-10s%s%n", "", "Thank you! Enjoy the book");
     }
 
-    public void unsuccessfulCheckoutMessage() {
+    private void unsuccessfulCheckoutMessage() {
         System.out.printf("%n%-10s%s%n", "", "That book is not available.");
     }
+
 }

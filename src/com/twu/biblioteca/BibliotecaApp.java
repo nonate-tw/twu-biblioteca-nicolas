@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class BibliotecaApp {
 
-    public static BooksService booksService;
+    private static BooksService booksService;
 
     static {
         booksService = new BooksService();
@@ -19,7 +19,7 @@ public class BibliotecaApp {
 
         do{
 
-            System.out.printf("%n%n%s",menu());
+            System.out.printf("%n%n%s", MenuDraw.principalMenu());
             Scanner scanner = new Scanner(System.in);
             try{
                 option = scanner.nextInt();
@@ -49,31 +49,5 @@ public class BibliotecaApp {
     }
 
 
-    public static String menu() {
 
-        String lines = getLines(50);
-        String menu = "";
-
-        menu += String.format("%s%n",lines);
-        menu += String.format("%-20s%s%n","","MENU");
-        menu += String.format("%s%n",lines);
-        menu += String.format("%-15s%s%n","","1.- List Books");
-        menu += String.format("%-15s%s%n","","2.- Quit");
-        menu += String.format("%s%n",lines);
-
-        menu += String.format("%s", "choose an option > ");
-
-        return menu;
-    }
-
-
-    public static String getLines(int n) {
-        StringBuilder lines = new StringBuilder();
-
-        for (int i = 0; i < n; i++) {
-            lines.append("=");
-        }
-
-        return lines.toString();
-    }
 }
