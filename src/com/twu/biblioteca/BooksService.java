@@ -58,12 +58,14 @@ public class BooksService {
         return borrowedList;
     }
 
-    private void successfulCheckoutMessage(boolean returnBook) {
+    private void successfulMessage(boolean returnBook) {
         if (!returnBook)
             System.out.printf("%n%-10s%s%n", "", "Thank you! Enjoy the book");
+        else
+            System.out.printf("%n%-10s%s%n", "", "Thank you for returning the book.");
     }
 
-    private void unsuccessfulCheckoutMessage(boolean returnBook) {
+    private void unsuccessfulMessage(boolean returnBook) {
         if (!returnBook)
             System.out.printf("%n%-10s%s%n", "", "That book is not available.");
     }
@@ -75,10 +77,10 @@ public class BooksService {
             }else{
                 returnBook(bookList.get(bookSelected-1));
             }
-            successfulCheckoutMessage(returnBook);
+            successfulMessage(returnBook);
             return true;
         }
-        unsuccessfulCheckoutMessage(returnBook);
+        unsuccessfulMessage(returnBook);
         return false;
     }
 
