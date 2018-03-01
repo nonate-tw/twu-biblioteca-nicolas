@@ -16,7 +16,8 @@ public class BooksService {
         borrowedList = new ArrayList<Book>();
     }
 
-    public List<Book> getBookList() {
+
+    public List<Book> generateBookList() {
 
         Scanner scan;
         try {
@@ -27,7 +28,7 @@ public class BooksService {
                 String line = scan.nextLine();
                 StringTokenizer stk = new StringTokenizer(line, "_");
                 try{
-                    bookList.add(new Book(stk.nextToken(), stk.nextToken(), Integer.parseInt(stk.nextToken())));
+                    getBookList().add(new Book(stk.nextToken(), stk.nextToken(), Integer.parseInt(stk.nextToken())));
                 }catch(NoSuchElementException e) {
                     System.out.println("Element not found.");
                 }
@@ -48,8 +49,12 @@ public class BooksService {
     }
 
     public void checkout(Book book) {
-        bookList.remove(book);
-        borrowedList.add(book);
+        getBookList().remove(book);
+        getBorrowedList().add(book);
+    }
+
+    List<Book> getBookList() {
+        return bookList;
     }
 
     public List<Book> getBorrowedList() {
@@ -87,8 +92,8 @@ public class BooksService {
 
     public void returnBook(Book book) {
 
-        borrowedList.remove(book);
-        bookList.add(book);
+        getBorrowedList().remove(book);
+        getBookList().add(book);
     }
 
 }

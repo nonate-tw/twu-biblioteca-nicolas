@@ -19,7 +19,7 @@ public class BibliotecaApp {
         System.out.println(welcomeMessage());
 
         int option;
-        List<Book> bookList =  booksService.getBookList();
+        List<Book> bookList =  booksService.generateBookList();
         do{
 
             System.out.printf("%n%n%s", MenuDraw.principalMenu());

@@ -12,16 +12,16 @@ import static org.junit.Assert.assertNotEquals;
 public class BookServiceTest {
 
    private BooksService booksService;
+   private List<Book> booksList;
 
    @Before
    public void setup() {
        booksService = new BooksService();
+       booksList = booksService.generateBookList();
    }
 
    @Test
    public void listOfBooks() {
-
-       List<Book> booksList = booksService.getBookList();
 
        assertEquals(11, booksList.size());
    }
@@ -29,9 +29,7 @@ public class BookServiceTest {
    @Test
    public void authorOfFirstBookIsKenColler() {
 
-       List<Book> bookList = booksService.getBookList();
-
-       String author = bookList.get(0).getAuthor();
+       String author = booksList.get(0).getAuthor();
 
        assertEquals("Ken Collier", author);
 
@@ -40,9 +38,7 @@ public class BookServiceTest {
    @Test
    public void yearPublishedOfFirstBookIs2012(){
 
-       List<Book> bookList = booksService.getBookList();
-
-       int year = bookList.get(0).getYear();
+       int year = booksList.get(0).getYear();
 
        assertEquals(2012, year);
    }
@@ -50,8 +46,7 @@ public class BookServiceTest {
    @Test
    public void checkoutTest() {
 
-       List<Book> bookList = booksService.getBookList();
-       booksService.checkout(bookList.get(0));
+       booksService.checkout(booksList.get(0));
        List<Book> borrowedList = booksService.getBorrowedList();
 
        assertEquals(1, borrowedList.size());
@@ -61,18 +56,16 @@ public class BookServiceTest {
    @Test
    public void checkedOutBookNotAppearInTheListOfAllLibraryBooks() {
 
-       List<Book> bookList = booksService.getBookList();
-       Book checkedOutBook = bookList.get(0);
+       Book checkedOutBook = booksList.get(0);
        booksService.checkout(checkedOutBook);
 
-       assertNotEquals(checkedOutBook, bookList.get(0));
+       assertNotEquals(checkedOutBook, booksList.get(0));
    }
 
    @Test
     public void selectedBookInListReturnSuccessfulCheckout() {
 
-       List<Book> bookList = booksService.getBookList();
-       boolean selection = booksService.manageBookSelection(1, bookList, false);
+       boolean selection = booksService.manageBookSelection(1, booksList, false);
 
        assertEquals(true, selection);
    }
@@ -80,8 +73,7 @@ public class BookServiceTest {
    @Test
     public void selectedOptionInBooksListIsGreaterThanListSize() {
 
-       List<Book> bookList = booksService.getBookList();
-       boolean selection = booksService.manageBookSelection(12, bookList, false);
+       boolean selection = booksService.manageBookSelection(12, booksList, false);
 
        assertEquals(false, selection);
    }
@@ -89,8 +81,7 @@ public class BookServiceTest {
    @Test
     public void selectedOptionInBookListIsLowerThanZero() {
 
-       List<Book> bookList = booksService.getBookList();
-       boolean selection = booksService.manageBookSelection(-1, bookList, false);
+       boolean selection = booksService.manageBookSelection(-1, booksList, false);
 
        assertEquals(false, selection);
    }
@@ -98,8 +89,7 @@ public class BookServiceTest {
    @Test
     public void borrowedListSizeIs1(){
 
-       List<Book> bookList = booksService.getBookList();
-       booksService.checkout(bookList.get(0));
+       booksService.checkout(booksList.get(0));
 
        List<Book> borrowedList = booksService.getBorrowedList();
 
@@ -109,8 +99,7 @@ public class BookServiceTest {
    @Test
     public void returnBorrowedBookTest() {
 
-       List<Book> bookList = booksService.getBookList();
-       booksService.checkout(bookList.get(0));
+       booksService.checkout(booksList.get(0));
        List<Book> borrowedList = booksService.getBorrowedList();
 
        booksService.returnBook(borrowedList.get(0));
@@ -121,13 +110,12 @@ public class BookServiceTest {
    @Test
     public void returnABookFromBorrowedListAnnShowInBookListTest() {
 
-       List<Book> bookList = booksService.getBookList();
-       int bookListSize1 = bookList.size();
-       booksService.checkout(bookList.get(0));
+       int bookListSize1 = booksList.size();
+       booksService.checkout(booksList.get(0));
        List<Book> borrowedList = booksService.getBorrowedList();
 
        booksService.returnBook(borrowedList.get(0));
-       int bookListSize2 = bookList.size();
+       int bookListSize2 = booksList.size();
 
        assertEquals(bookListSize1, bookListSize2);
    }
