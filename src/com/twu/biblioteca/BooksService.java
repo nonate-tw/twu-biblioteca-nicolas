@@ -43,6 +43,9 @@ public class BooksService {
         System.out.print(MenuDraw.bookListGenerate(bookList));
     }
 
+    public void printBorrowedList(List<Book> borrowedList) {
+        System.out.println(MenuDraw.bookListGenerate(borrowedList));
+    }
 
     public void checkout(Book book) {
         book.setBorrowed(true);
@@ -55,21 +58,34 @@ public class BooksService {
         return borrowedList;
     }
 
-    private void successfulCheckoutMessage() {
-        System.out.printf("%n%-10s%s%n", "", "Thank you! Enjoy the book");
+    private void successfulCheckoutMessage(boolean returnBook) {
+        if (!returnBook)
+            System.out.printf("%n%-10s%s%n", "", "Thank you! Enjoy the book");
     }
 
-    private void unsuccessfulCheckoutMessage() {
-        System.out.printf("%n%-10s%s%n", "", "That book is not available.");
+    private void unsuccessfulCheckoutMessage(boolean returnBook) {
+        if (!returnBook)
+            System.out.printf("%n%-10s%s%n", "", "That book is not available.");
     }
 
-    public boolean manageBookSelection(int bookSelected, List<Book> bookList) {
+    public boolean manageBookSelection(int bookSelected, List<Book> bookList, boolean returnBook) {
         if (bookSelected > 0 && bookSelected <= bookList.size()){
-            checkout(bookList.get(bookSelected-1));
-            successfulCheckoutMessage();
+            if (!returnBook){
+                checkout(bookList.get(bookSelected-1));
+            }else{
+                returnBook(bookList.get(bookSelected-1));
+            }
+            successfulCheckoutMessage(returnBook);
             return true;
         }
-        unsuccessfulCheckoutMessage();
+        unsuccessfulCheckoutMessage(returnBook);
         return false;
     }
+
+    public void returnBook(Book book) {
+
+        borrowedList.remove(book);
+        bookList.add(book);
+    }
+
 }

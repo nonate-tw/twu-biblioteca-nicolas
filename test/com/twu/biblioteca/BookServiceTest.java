@@ -74,7 +74,7 @@ public class BookServiceTest {
     public void selectedBookInListReturnSuccessfulCheckout() {
 
        List<Book> bookList = booksService.getBookList();
-       boolean selection = booksService.manageBookSelection(1, bookList);
+       boolean selection = booksService.manageBookSelection(1, bookList, false);
 
        assertEquals(true, selection);
    }
@@ -83,7 +83,7 @@ public class BookServiceTest {
     public void selectedOptionInBooksListIsGreaterThanListSize() {
 
        List<Book> bookList = booksService.getBookList();
-       boolean selection = booksService.manageBookSelection(12, bookList);
+       boolean selection = booksService.manageBookSelection(12, bookList, false);
 
        assertEquals(false, selection);
    }
@@ -92,9 +92,45 @@ public class BookServiceTest {
     public void selectedOptionInBookListIsLowerThanZero() {
 
        List<Book> bookList = booksService.getBookList();
-       boolean selection = booksService.manageBookSelection(-1, bookList);
+       boolean selection = booksService.manageBookSelection(-1, bookList, false);
 
        assertEquals(false, selection);
    }
 
+   @Test
+    public void borrowedListSizeIs1(){
+
+       List<Book> bookList = booksService.getBookList();
+       booksService.checkout(bookList.get(0));
+
+       List<Book> borrowedList = booksService.getBorrowedList();
+
+       assertEquals(1, borrowedList.size());
+   }
+
+   @Test
+    public void returnBorrowedBookTest() {
+
+       List<Book> bookList = booksService.getBookList();
+       booksService.checkout(bookList.get(0));
+       List<Book> borrowedList = booksService.getBorrowedList();
+
+       booksService.returnBook(borrowedList.get(0));
+
+       assertEquals(0, borrowedList.size());
+   }
+
+   @Test
+    public void returnABookFromBorrowedListAnnShowInBookListTest() {
+
+       List<Book> bookList = booksService.getBookList();
+       int bookListSize1 = bookList.size();
+       booksService.checkout(bookList.get(0));
+       List<Book> borrowedList = booksService.getBorrowedList();
+
+       booksService.returnBook(borrowedList.get(0));
+       int bookListSize2 = bookList.size();
+
+       assertEquals(bookListSize1, bookListSize2);
+   }
 }

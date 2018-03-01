@@ -28,7 +28,8 @@ public class MenuDraw {
         menu += String.format("%s%n",lines);
         menu += String.format("%-15s%s%n","","1.- List Books");
         menu += String.format("%-15s%s%n","","2.- Checkout Book");
-        menu += String.format("%-15s%s%n","","3.- Quit");
+        menu += String.format("%-15s%s%n","","3.- Return Book");
+        menu += String.format("%-15s%s%n","","4.- Quit");
         menu += String.format("%s%n",lines);
 
         menu += String.format("%s", "choose an option > ");
@@ -40,7 +41,7 @@ public class MenuDraw {
         String lines = getLines(120);
         String bookListStr = "";
         bookListStr += String.format("%s%n",lines);
-        bookListStr += String.format("%-60s%s%n", "" ,"List of Books");
+        bookListStr += String.format("%-53s%s%n", "" ,"List of Books");
         bookListStr += String.format("%s%n",lines);
         bookListStr += String.format("%-53s%-50s%-50s%n","Name","Author","Year Published");
         bookListStr += String.format("%s%n",lines);
@@ -55,6 +56,7 @@ public class MenuDraw {
 
         return bookListStr;
     }
+
 
     public static int checkoutBookSelection() {
 
