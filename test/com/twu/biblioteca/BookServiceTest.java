@@ -70,4 +70,31 @@ public class BookServiceTest {
        assertNotEquals(checkedOutBook, bookList.get(0));
    }
 
+   @Test
+    public void selectedBookInListReturnSuccessfulCheckout() {
+
+       List<Book> bookList = booksService.getBookList();
+       boolean selection = booksService.manageBookSelection(1, bookList);
+
+       assertEquals(true, selection);
+   }
+
+   @Test
+    public void selectedOptionInBooksListIsGreaterThanListSize() {
+
+       List<Book> bookList = booksService.getBookList();
+       boolean selection = booksService.manageBookSelection(12, bookList);
+
+       assertEquals(false, selection);
+   }
+
+   @Test
+    public void selectedOptionInBookListIsLowerThanZero() {
+
+       List<Book> bookList = booksService.getBookList();
+       boolean selection = booksService.manageBookSelection(-1, bookList);
+
+       assertEquals(false, selection);
+   }
+
 }

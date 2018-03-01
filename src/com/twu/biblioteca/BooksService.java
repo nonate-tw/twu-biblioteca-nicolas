@@ -39,59 +39,8 @@ public class BooksService {
         return bookList;
     }
 
-    public void printBooksList() {
-
-        if (bookList.isEmpty())
-            getBookList();
-
-        boolean result;
-        do{
-
-            System.out.print(bookListGenerate());
-            result = menuOptions();
-
-        }while(!result);
-    }
-
-    private String bookListGenerate() {
-        String lines = MenuDraw.getLines(120);
-        String bookListStr = "";
-        bookListStr += String.format("%s%n",lines);
-        bookListStr += String.format("%-60s%s%n", "" ,"List of Books");
-        bookListStr += String.format("%s%n",lines);
-        bookListStr += String.format("%-53s%-50s%-50s%n","Name","Author","Year Published");
-        bookListStr += String.format("%s%n",lines);
-
-        int i = 1;
-        for (Book book: bookList){
-
-            bookListStr += String.format("%02d-%-50s%-50s%d%n",i ,book.getName(), book.getAuthor(), book.getYear());
-            i++;
-        }
-        bookListStr += String.format("%s%n",lines);
-
-        bookListStr += String.format("%s", "Borrow a book (enter the number, 0 to return): ");
-
-        return bookListStr;
-    }
-
-
-    private boolean menuOptions() {
-        int option;
-        Scanner scanner = new Scanner(System.in);
-        option = scanner.nextInt();
-
-        if (option > 0 && option <= bookList.size()){
-            checkout(bookList.get(option-1));
-            return true;
-        }else{
-            if (option != 0){
-                unsuccessfulCheckoutMessage();
-            }else{
-                return true;
-            }
-        }
-        return false;
+    public void printBooksList(List<Book> bookList) {
+        System.out.print(MenuDraw.bookListGenerate(bookList));
     }
 
 
@@ -100,9 +49,6 @@ public class BooksService {
 
         bookList.remove(book);
         borrowedList.add(book);
-
-        successfulCheckoutMessage();
-
     }
 
     public List<Book> getBorrowedList() {
@@ -117,4 +63,13 @@ public class BooksService {
         System.out.printf("%n%-10s%s%n", "", "That book is not available.");
     }
 
+    public boolean manageBookSelection(int bookSelected, List<Book> bookList) {
+        if (bookSelected > 0 && bookSelected <= bookList.size()){
+            checkout(bookList.get(bookSelected-1));
+            successfulCheckoutMessage();
+            return true;
+        }
+        unsuccessfulCheckoutMessage();
+        return false;
+    }
 }
