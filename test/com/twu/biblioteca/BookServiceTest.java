@@ -54,9 +54,7 @@ public class BookServiceTest {
        booksService.checkout(bookList.get(0));
        List<Book> borrowedList = booksService.getBorrowedList();
 
-       boolean borrowedBook = borrowedList.get(0).isBorrowed();
-
-       assertEquals(true, borrowedBook);
+       assertEquals(1, borrowedList.size());
 
    }
 

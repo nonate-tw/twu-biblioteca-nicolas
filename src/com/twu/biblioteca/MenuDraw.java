@@ -38,23 +38,28 @@ public class MenuDraw {
     }
 
     public static String bookListGenerate(List<Book> bookList) {
-        String lines = getLines(120);
-        String bookListStr = "";
-        bookListStr += String.format("%s%n",lines);
-        bookListStr += String.format("%-53s%s%n", "" ,"List of Books");
-        bookListStr += String.format("%s%n",lines);
-        bookListStr += String.format("%-53s%-50s%-50s%n","Name","Author","Year Published");
-        bookListStr += String.format("%s%n",lines);
+        if (!bookList.isEmpty()){
 
-        int i = 1;
-        for (Book book: bookList){
+            String lines = getLines(120);
+            String bookListStr = "";
+            bookListStr += String.format("%s%n",lines);
+            bookListStr += String.format("%-53s%s%n", "" ,"List of Books");
+            bookListStr += String.format("%s%n",lines);
+            bookListStr += String.format("%-53s%-50s%-50s%n","Name","Author","Year Published");
+            bookListStr += String.format("%s%n",lines);
 
-            bookListStr += String.format("%02d-%-50s%-50s%d%n",i ,book.getName(), book.getAuthor(), book.getYear());
-            i++;
+            int i = 1;
+            for (Book book: bookList){
+
+                bookListStr += String.format("%02d-%-50s%-50s%d%n",i ,book.getName(), book.getAuthor(), book.getYear());
+                i++;
+            }
+            bookListStr += String.format("%s%n",lines);
+
+            return bookListStr;
+        }else{
+            return "Book List Is Empty!";
         }
-        bookListStr += String.format("%s%n",lines);
-
-        return bookListStr;
     }
 
 

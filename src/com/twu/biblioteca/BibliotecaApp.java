@@ -28,10 +28,9 @@ public class BibliotecaApp {
                 option = scanner.nextInt();
             }catch (InputMismatchException e) {
                 option = 0;
-                System.out.println("Select a valid option!");
             }
 
-            int bookSelected = 0;
+            int bookSelected;
             switch (option) {
                 case 1:
                     booksService.printBooksList(bookList);
@@ -43,8 +42,10 @@ public class BibliotecaApp {
                 case 3:
                     List<Book> borrowedList = booksService.getBorrowedList();
                     booksService.printBorrowedList(borrowedList);
-                    bookSelected = MenuDraw.checkoutBookSelection();
-                    booksService.manageBookSelection(bookSelected, borrowedList, true);
+                    if (!borrowedList.isEmpty()){
+                        bookSelected = MenuDraw.checkoutBookSelection();
+                        booksService.manageBookSelection(bookSelected, borrowedList, true);
+                    }
                     break;
                 case 4:
                     System.out.println("Good Bye!");

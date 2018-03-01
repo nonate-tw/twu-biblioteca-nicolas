@@ -48,8 +48,6 @@ public class BooksService {
     }
 
     public void checkout(Book book) {
-        book.setBorrowed(true);
-
         bookList.remove(book);
         borrowedList.add(book);
     }
@@ -68,6 +66,9 @@ public class BooksService {
     private void unsuccessfulMessage(boolean returnBook) {
         if (!returnBook)
             System.out.printf("%n%-10s%s%n", "", "That book is not available.");
+        else
+            System.out.printf("%n%-10s%s%n", "", "That is not a valid book to return.");
+
     }
 
     public boolean manageBookSelection(int bookSelected, List<Book> bookList, boolean returnBook) {
