@@ -4,119 +4,119 @@ import com.twu.biblioteca.pojos.Book;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class BookServiceTest {
 
-   private BooksService booksService;
-   private List<Book> booksList;
+    private BooksService booksService;
+    private List<Book> booksList;
 
-   @Before
-   public void setup() {
-       booksService = new BooksService();
-       booksList = booksService.generateBookList();
-   }
+    @Before
+    public void setup() {
+        booksService = new BooksService();
+        booksList = new ArrayList<Book>();
 
-   @Test
-   public void listOfBooks() {
 
-       assertEquals(11, booksList.size());
-   }
+        booksList.add(new Book("Agile Analytics", "Ken Collier", 2012));
+        booksList.add(new Book("Building Microservices", "Sam Newman", 2015));
+        booksList.add(new Book("ReWork", "Jason Fried,David Heinemeier Hansson", 2010));
 
-   @Test
-   public void authorOfFirstBookIsKenColler() {
+        booksService.setBooksList(booksList);
+    }
 
-       String author = booksList.get(0).getAuthor();
+    @Test
+    public void listOfBooks() {
 
-       assertEquals("Ken Collier", author);
+        assertEquals(3, booksList.size());
+    }
 
-   }
+    @Test
+    public void authorOfFirstBookIsKenColler() {
 
-   @Test
-   public void yearPublishedOfFirstBookIs2012(){
+        String author = booksList.get(0).getAuthor();
 
-       int year = booksList.get(0).getYear();
+        assertEquals("Ken Collier", author);
+    }
 
-       assertEquals(2012, year);
-   }
+    @Test
+    public void yearPublishedOfFirstBookIs2012() {
 
-   @Test
-   public void checkoutTest() {
+        int year = booksList.get(0).getYear();
 
-       booksService.checkout(booksList.get(0));
-       List<Book> borrowedList = booksService.getBorrowedList();
+        assertEquals(2012, year);
+    }
 
-       assertEquals(1, borrowedList.size());
+    @Test
+    public void checkoutTest() {
 
-   }
+        Book checkedOutBook = booksList.get(0);
+        booksService.checkout(checkedOutBook);
+        List<Book> borrowedList = booksService.getBorrowedList();
 
-   @Test
-   public void checkedOutBookNotAppearInTheListOfAllLibraryBooks() {
+        assertEquals(1, borrowedList.size());
+    }
 
-       Book checkedOutBook = booksList.get(0);
-       booksService.checkout(checkedOutBook);
+    @Test
+    public void checkedOutBookShouldNotBeInAvailableBooksList() {
 
-       assertNotEquals(checkedOutBook, booksList.get(0));
-   }
+        Book checkedOutBook = booksList.get(0);
+        booksService.checkout(checkedOutBook);
 
-   @Test
+        assertFalse(booksList.contains(checkedOutBook));
+    }
+
+    @Test
     public void selectedBookInListReturnSuccessfulCheckout() {
 
-       boolean selection = booksService.manageBookSelection(1, booksList, false);
+        boolean selection = booksService.checkoutManager(1);
 
-       assertEquals(true, selection);
-   }
+        assertEquals(true, selection);
+    }
 
-   @Test
+    @Test
     public void selectedOptionInBooksListIsGreaterThanListSize() {
 
-       boolean selection = booksService.manageBookSelection(12, booksList, false);
+        boolean selection = booksService.checkoutManager(12);
 
-       assertEquals(false, selection);
-   }
+        assertEquals(false, selection);
+    }
 
-   @Test
+    @Test
     public void selectedOptionInBookListIsLowerThanZero() {
 
-       boolean selection = booksService.manageBookSelection(-1, booksList, false);
+        boolean selection = booksService.checkoutManager(-1);
 
-       assertEquals(false, selection);
-   }
+        assertEquals(false, selection);
+    }
 
-   @Test
-    public void borrowedListSizeIs1(){
-
-       booksService.checkout(booksList.get(0));
-
-       List<Book> borrowedList = booksService.getBorrowedList();
-
-       assertEquals(1, borrowedList.size());
-   }
-
-   @Test
+    @Test
     public void returnBorrowedBookTest() {
 
-       booksService.checkout(booksList.get(0));
-       List<Book> borrowedList = booksService.getBorrowedList();
+        List<Book> borrowedList = new ArrayList<Book>();
+        borrowedList.add(new Book("Lean UX", "", 2005));
+        booksService.setBorrowedList(borrowedList);
 
-       booksService.returnBook(borrowedList.get(0));
+        assertEquals(true, booksService.returnBookManager(1));
+    }
 
-       assertEquals(0, borrowedList.size());
-   }
-
-   @Test
+    @Test
     public void returnABookFromBorrowedListAnnShowInBookListTest() {
 
-       int bookListSize1 = booksList.size();
-       booksService.checkout(booksList.get(0));
-       List<Book> borrowedList = booksService.getBorrowedList();
+        int bookListSize1 = booksList.size();
+        booksService.checkout(booksList.get(0));
 
-       booksService.returnBook(borrowedList.get(0));
-       int bookListSize2 = booksList.size();
+        booksService.returnBookManager(1);
+        int bookListSize2 = booksList.size();
 
-       assertEquals(bookListSize1, bookListSize2);
-   }
+        assertEquals(bookListSize1, bookListSize2);
+    }
+
+  /*
+
+
+
+  */
 }

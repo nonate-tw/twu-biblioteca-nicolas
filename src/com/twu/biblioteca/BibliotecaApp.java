@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.menu.Menu;
 import com.twu.biblioteca.pojos.Book;
 
 import java.util.InputMismatchException;
@@ -18,7 +19,11 @@ public class BibliotecaApp {
 
         System.out.println(welcomeMessage());
 
-        int option;
+        Menu menu = new Menu();
+
+        menu.menuPrint();
+
+        /*int option;
         List<Book> bookList =  booksService.generateBookList();
         do{
 
@@ -33,18 +38,18 @@ public class BibliotecaApp {
             int bookSelected;
             switch (option) {
                 case 1:
-                    booksService.printBooksList(bookList);
+                    booksService.printBooksList();
                     break;
                 case 2:
                     bookSelected = MenuDraw.checkoutBookSelection();
-                    booksService.manageBookSelection(bookSelected, bookList, false);
+                    //booksService.manageBookSelection(bookSelected, bookList, false);
                     break;
                 case 3:
                     List<Book> borrowedList = booksService.getBorrowedList();
-                    booksService.printBorrowedList(borrowedList);
+                    booksService.printBorrowedList();
                     if (!borrowedList.isEmpty()){
                         bookSelected = MenuDraw.checkoutBookSelection();
-                        booksService.manageBookSelection(bookSelected, borrowedList, true);
+                        //booksService.manageBookSelection(bookSelected, borrowedList, true);
                     }
                     break;
                 case 4:
@@ -55,7 +60,7 @@ public class BibliotecaApp {
                     break;
             }
 
-        }while(option != 4);
+        }while(option != 4);*/
     }
 
     public static String welcomeMessage() {
