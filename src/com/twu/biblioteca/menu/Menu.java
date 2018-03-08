@@ -1,6 +1,8 @@
 package com.twu.biblioteca.menu;
 
 import com.twu.biblioteca.BooksService;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu implements IMenuHandler {
@@ -15,11 +17,6 @@ public class Menu implements IMenuHandler {
     @Override
     public void setNext(IMenuHandler   handler) {
         next = handler;
-    }
-
-    @Override
-    public IMenuHandler getNext() {
-        return next;
     }
 
     @Override
@@ -45,9 +42,9 @@ public class Menu implements IMenuHandler {
     }
 
 
-    public void menuPrint(){
+    public void printMenu(){
         Scanner scanner = new Scanner(System.in);
-        int option = -1;
+        int option;
         while(true){
             System.out.println("\n\nMENU");
             System.out.println("1.- List Books");
@@ -56,8 +53,13 @@ public class Menu implements IMenuHandler {
             System.out.println("4.- Quit");
 
 
-            System.out.print("Option: ");
-            option = scanner.nextInt();
+            System.out.print("Choose an option: ");
+            try{
+                option = scanner.nextInt();
+            }catch (InputMismatchException ex){
+                scanner.nextLine();
+                option = 0;
+            }
 
             handlerOption(option);
         }

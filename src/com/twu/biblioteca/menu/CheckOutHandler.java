@@ -2,8 +2,6 @@ package com.twu.biblioteca.menu;
 
 import com.twu.biblioteca.BooksService;
 
-import java.util.Scanner;
-
 public class CheckOutHandler implements IMenuHandler{
 
     private BooksService booksService;
@@ -12,11 +10,6 @@ public class CheckOutHandler implements IMenuHandler{
     @Override
     public void setNext(IMenuHandler handler) {
         next = handler;
-    }
-
-    @Override
-    public IMenuHandler getNext() {
-        return next;
     }
 
     @Override

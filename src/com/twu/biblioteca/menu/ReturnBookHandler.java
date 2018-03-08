@@ -13,11 +13,6 @@ public class ReturnBookHandler implements IMenuHandler {
     }
 
     @Override
-    public IMenuHandler getNext() {
-        return next;
-    }
-
-    @Override
     public void handlerOption(int option) {
 
         if (option == 3)

@@ -8,16 +8,20 @@ public class BooksService {
 
     private List<Book> bookList;
     private List<Book> borrowedList;
+    private BookManager bookManager;
+    private static final String PADDING = "%n%-10s%s%n";
 
     public BooksService() {
         bookList = new ArrayList<Book>();
         borrowedList = new ArrayList<Book>();
 
+        bookManager = new BookManager(this);
+
         generateBookList();
     }
 
 
-    public void generateBookList() {
+    private void generateBookList() {
 
         bookList.add(new Book("Agile Analytics", "Ken Collier", 2012));
         bookList.add(new Book("Building Microservices", "Sam Newman", 2015));
@@ -26,82 +30,32 @@ public class BooksService {
     }
 
     public void printBooksList() {
-        System.out.print(MenuDraw.bookListGenerate(bookList));
+        System.out.print(BookListDraw.bookListGenerate(bookList));
     }
 
-    public void printBorrowedList() {
-        System.out.println(MenuDraw.bookListGenerate(borrowedList));
+    private void printBorrowedList() {
+        System.out.println(BookListDraw.bookListGenerate(borrowedList));
     }
 
     public void checkoutBook() {
-        if (!getBookList().isEmpty()) {
+        if (getBookList().isEmpty()) {
+            System.out.println("Book List Is Empty!");
+        }else{
 
             Scanner scanner = new Scanner(System.in);
-            int bookNumber = scanner.nextInt();
+            int bookNumber;
 
-            checkoutManager(bookNumber);
-        }
-
-    }
-
-    public boolean checkoutManager(int bookNumber) {
-        if (bookNumber > 0 && bookNumber <= getBookList().size()) {
-
-            Book book = getBookList().get(bookNumber - 1);
-
-            checkout(book);
-
-            checkoutBookSuccessfulMessage();
-
-            return true;
-        }
-
-        checkoutBookUnsuccessfulMessage();
-        return false;
-    }
-
-    public void checkout(Book book) {
-        getBookList().remove(book);
-        getBorrowedList().add(book);
-    }
-
-    public List<Book> getBookList() {
-        return bookList;
-    }
-
-    public List<Book> getBorrowedList() {
-        return borrowedList;
-    }
-
-    private void checkoutBookSuccessfulMessage() {
-        System.out.printf("%n%-10s%s%n", "", "Thank you! Enjoy the book");
-    }
-
-    private void returnBookSuccessfulMessage() {
-        System.out.printf("%n%-10s%s%n", "", "Thank you for returning the book.");
-    }
-
-    private void checkoutBookUnsuccessfulMessage() {
-        System.out.printf("%n%-10s%s%n", "", "That book is not available.");
-    }
-
-    private void returnBookUnsucessfulMessage() {
-        System.out.printf("%n%-10s%s%n", "", "That is not a valid book to return.");
-    }
-
-    /*public boolean manageBookSelection(int bookSelected, List<Book> bookList, boolean returnBook) {
-        if (bookSelected > 0 && bookSelected <= bookList.size()) {
-            if (!returnBook) {
-                checkout(bookList.get(bookSelected - 1));
-            } else {
-                returnBook(bookSelected - 1);
+            try {
+                System.out.print("Enter the number of the book > ");
+                bookNumber = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                scanner.nextLine();
+                bookNumber = 0;
             }
-            successfulMessage(returnBook);
-            return true;
+
+            bookManager.checkoutManager(bookNumber);
         }
-        unsuccessfulMessage(returnBook);
-        return false;
-    }*/
+    }
 
     public void returnBook() {
 
@@ -110,27 +64,48 @@ public class BooksService {
         if (!getBorrowedList().isEmpty()) {
 
             Scanner scanner = new Scanner(System.in);
-            int bookNumber = scanner.nextInt();
+            int bookNumber;
 
-            returnBookManager(bookNumber);
+            try {
+                System.out.print("Enter the number of the book > ");
+                bookNumber = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                scanner.nextLine();
+                bookNumber = 0;
+            }
+
+            bookManager.returnBookManager(bookNumber);
         }
     }
 
-    public boolean returnBookManager(int bookNumber) {
-        if (bookNumber > 0 && bookNumber <= getBorrowedList().size()) {
+    public void checkout(Book book) {
+        getBookList().remove(book);
+        getBorrowedList().add(book);
+    }
 
-            Book book = getBorrowedList().get(bookNumber - 1);
 
-            getBorrowedList().remove(book);
-            getBookList().add(book);
+    protected void checkoutBookSuccessfulMessage() {
+        System.out.printf(PADDING, "", "Thank you! Enjoy the book");
+    }
 
-            returnBookSuccessfulMessage();
+    protected void returnBookSuccessfulMessage() {
+        System.out.printf(PADDING, "", "Thank you for returning the book.");
+    }
 
-            return true;
-        }
+    protected void checkoutBookUnsuccessfulMessage() {
+        System.out.printf(PADDING, "", "That book is not available.");
+    }
 
-        returnBookUnsucessfulMessage();
-        return false;
+    protected void returnBookUnsuccessfulMessage() {
+        System.out.printf(PADDING, "", "That is not a valid book to return.");
+    }
+
+    protected List<Book> getBookList() {
+        return bookList;
+    }
+
+    public List<Book> getBorrowedList() {
+        return borrowedList;
     }
 
     public void setBorrowedList(List<Book> borrowedList) {
