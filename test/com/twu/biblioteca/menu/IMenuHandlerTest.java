@@ -1,6 +1,7 @@
 package com.twu.biblioteca.menu;
 
 import com.twu.biblioteca.services.BooksService;
+import com.twu.biblioteca.services.LoginService;
 import com.twu.biblioteca.services.MovieService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ public class IMenuHandlerTest {
     private static final int CHECKOUT_BOOK = 3;
     private static final int CHECKOUT_MOVIE = 4;
     private static final int RETURN_BOOK = 5;
+    private static final int LOGIN = 6;
 
     @Test
     public void option1ShouldPrintBooksList() {
@@ -27,9 +29,7 @@ public class IMenuHandlerTest {
 
         listBookHandler.handlerOption(BOOKS_LIST);
 
-
         Mockito.verify(mock).printBooksList();
-
     }
 
     @Test
@@ -55,7 +55,6 @@ public class IMenuHandlerTest {
         checkOutHandler.handlerOption(CHECKOUT_BOOK);
 
         Mockito.verify(mock).checkoutBook();
-
     }
 
     @Test
@@ -81,7 +80,20 @@ public class IMenuHandlerTest {
         returnBookHandler.handlerOption(RETURN_BOOK);
 
         Mockito.verify(mock).returnBook();
-
     }
 
- }
+
+    @Test
+    public void option6ShouldLoginUser() {
+
+        LoginUserHandler loginUserHandler = new LoginUserHandler();
+
+        LoginService mock = Mockito.mock(LoginService.class);
+        loginUserHandler.setLoginService(mock);
+
+        loginUserHandler.handlerOption(LOGIN);
+
+        Mockito.verify(mock).loginUser();
+    }
+
+}

@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class MovieManagerTest {
@@ -34,6 +35,15 @@ public class MovieManagerTest {
         boolean checkout = movieManager.checkoutMovieManager(movieIndex);
 
         assertTrue(checkout);
+    }
+
+    @Test
+    public void checkoutMovieShouldBeFalseTest() {
+        int outOfRangeMovieIndex = 20;
+
+        boolean checkout = movieManager.checkoutMovieManager(outOfRangeMovieIndex);
+
+        assertFalse(checkout);
     }
 
 }

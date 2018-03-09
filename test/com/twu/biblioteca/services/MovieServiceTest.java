@@ -31,31 +31,4 @@ public class MovieServiceTest {
         assertEquals(3, movieList.size());
     }
 
-
-
-    /*@Test
-    public void checkoutMovieShouldBeFalseTest() {
-        movieService = new MovieService();
-        movieService.setMovieList(movieList);
-
-        int outOfRangeMovieIndex = 20;
-
-        boolean checkout = movieService.checkoutMovieManager(outOfRangeMovieIndex);
-
-        assertFalse(checkout);
-    }*/
-
-   /* @Test
-    public void validCheckoutShouldPrintSuccessfulMessage() {
-        MovieService mock = Mockito.mock(MovieService.class);
-
-        movieService = new MovieService();
-        mock.setMovieList(movieList);
-
-        int movieIndex = 0;
-
-        mock.checkoutMovie(movieIndex);
-
-        Mockito.verify(mock).successfulMessage();
-    }*/
 }
