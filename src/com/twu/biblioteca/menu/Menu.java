@@ -1,6 +1,7 @@
 package com.twu.biblioteca.menu;
 
-import com.twu.biblioteca.BooksService;
+import com.twu.biblioteca.services.BooksService;
+import com.twu.biblioteca.services.MovieService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,9 +10,11 @@ public class Menu implements IMenuHandler {
 
     private IMenuHandler next;
     private BooksService booksService;
+    private MovieService moviesService;
 
     public Menu() {
         booksService = new BooksService();
+        moviesService = new MovieService();
     }
 
     @Override
@@ -26,13 +29,21 @@ public class Menu implements IMenuHandler {
         this.setNext(listBookHandler);
         listBookHandler.setBooksService(booksService);
 
+        ListMovieHandler listMovieHandler = new ListMovieHandler();
+        listBookHandler.setNext(listMovieHandler);
+        listMovieHandler.setMoviesService(moviesService);
+
         CheckOutHandler checkOutHandler = new CheckOutHandler();
-        listBookHandler.setNext(checkOutHandler);
+        listMovieHandler.setNext(checkOutHandler);
         checkOutHandler.setBooksService(booksService);
+
+        CheckOutMovieHandler checkOutMovieHandler = new CheckOutMovieHandler();
+        checkOutHandler.setNext(checkOutMovieHandler);
+        checkOutMovieHandler.setMoviesService(moviesService);
 
 
         ReturnBookHandler returnBookHandler = new ReturnBookHandler();
-        checkOutHandler.setNext(returnBookHandler);
+        checkOutMovieHandler.setNext(returnBookHandler);
         returnBookHandler.setBooksService(booksService);
 
         ExitMenuHandler exitMenuHandler = new ExitMenuHandler();
@@ -48,9 +59,11 @@ public class Menu implements IMenuHandler {
         while(true){
             System.out.println("\n\nMENU");
             System.out.println("1.- List Books");
-            System.out.println("2.- Checkout Book");
-            System.out.println("3.- Return Book");
-            System.out.println("4.- Quit");
+            System.out.println("2.- List Movies");
+            System.out.println("3.- Checkout Book");
+            System.out.println("4.- Checkout Movie");
+            System.out.println("5.- Return Book");
+            System.out.println("6.- Quit");
 
 
             System.out.print("Choose an option: ");

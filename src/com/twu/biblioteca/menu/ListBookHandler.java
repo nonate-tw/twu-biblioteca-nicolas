@@ -1,6 +1,6 @@
 package com.twu.biblioteca.menu;
 
-import com.twu.biblioteca.BooksService;
+import com.twu.biblioteca.services.BooksService;
 
 public class ListBookHandler implements IMenuHandler {
 
@@ -15,7 +15,7 @@ public class ListBookHandler implements IMenuHandler {
     @Override
     public void handlerOption(int option) {
 
-        if (option == 1)
+        if (option == MenuOptions.LIST_BOOKS)
             booksService.printBooksList();
         else
             next.handlerOption(option);

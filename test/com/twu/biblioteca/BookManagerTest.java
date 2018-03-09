@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.pojos.Book;
+import com.twu.biblioteca.services.BooksService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class BookManagerTest {
 
@@ -37,7 +40,7 @@ public class BookManagerTest {
 
         boolean selection = bookManager.checkoutManager(1);
 
-        assertEquals(true, selection);
+        assertTrue(selection);
     }
 
     @Test
@@ -45,7 +48,7 @@ public class BookManagerTest {
 
         boolean selection = bookManager.checkoutManager(12);
 
-        assertEquals(false, selection);
+        assertFalse(selection);
     }
 
     @Test
@@ -53,7 +56,7 @@ public class BookManagerTest {
 
         boolean selection = bookManager.checkoutManager(-1);
 
-        assertEquals(false, selection);
+        assertFalse(selection);
     }
 
     @Test
@@ -63,16 +66,36 @@ public class BookManagerTest {
         borrowedList.add(new Book("Lean UX", "", 2005));
         booksService.setBorrowedList(borrowedList);
 
-        assertEquals(true, bookManager.returnBookManager(1));
+        assertTrue(bookManager.returnBookManager(1));
     }
 
     @Test
-    public void returnABookFromBorrowedListAnnShowInBookListTest() {
+    public void checkoutTest() {
 
+        bookManager.checkoutManager(1);
+        List<Book> borrowedList = booksService.getBorrowedList();
+
+        assertEquals(1, borrowedList.size());
+    }
+
+    @Test
+    public void checkedOutBookShouldNotBeInAvailableBooksList() {
+
+        int checkedoutBookIndex = 1;
+        Book checkedOutBook = booksList.get(checkedoutBookIndex - 1);
+        bookManager.checkoutManager(checkedoutBookIndex);
+
+        assertFalse(booksList.contains(checkedOutBook));
+    }
+
+    @Test
+    public void returnABookFromBorrowedListAndShowInBookListTest() {
+
+        int checkedoutBookIndex = 1;
         int bookListSize1 = booksList.size();
-        booksService.checkout(booksList.get(0));
+        bookManager.checkoutManager(checkedoutBookIndex);
 
-        bookManager.returnBookManager(1);
+        bookManager.returnBookManager(checkedoutBookIndex);
         int bookListSize2 = booksList.size();
 
         assertEquals(bookListSize1, bookListSize2);

@@ -1,5 +1,7 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.services;
 
+import com.twu.biblioteca.BookListDraw;
+import com.twu.biblioteca.BookManager;
 import com.twu.biblioteca.pojos.Book;
 
 import java.util.*;
@@ -78,29 +80,24 @@ public class BooksService {
         }
     }
 
-    public void checkout(Book book) {
-        getBookList().remove(book);
-        getBorrowedList().add(book);
-    }
 
-
-    protected void checkoutBookSuccessfulMessage() {
+    public void checkoutBookSuccessfulMessage() {
         System.out.printf(PADDING, "", "Thank you! Enjoy the book");
     }
 
-    protected void returnBookSuccessfulMessage() {
+    public void returnBookSuccessfulMessage() {
         System.out.printf(PADDING, "", "Thank you for returning the book.");
     }
 
-    protected void checkoutBookUnsuccessfulMessage() {
+    public void checkoutBookUnsuccessfulMessage() {
         System.out.printf(PADDING, "", "That book is not available.");
     }
 
-    protected void returnBookUnsuccessfulMessage() {
+    public void returnBookUnsuccessfulMessage() {
         System.out.printf(PADDING, "", "That is not a valid book to return.");
     }
 
-    protected List<Book> getBookList() {
+    public List<Book> getBookList() {
         return bookList;
     }
 

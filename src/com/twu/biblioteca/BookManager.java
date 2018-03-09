@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.pojos.Book;
+import com.twu.biblioteca.services.BooksService;
 
 public class BookManager {
 
@@ -15,7 +16,8 @@ public class BookManager {
 
             Book book = booksService.getBookList().get(bookNumber - 1);
 
-            booksService.checkout(book);
+            booksService.getBookList().remove(book);
+            booksService.getBorrowedList().add(book);
 
             booksService.checkoutBookSuccessfulMessage();
 

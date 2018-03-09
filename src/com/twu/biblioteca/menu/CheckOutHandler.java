@@ -1,6 +1,6 @@
 package com.twu.biblioteca.menu;
 
-import com.twu.biblioteca.BooksService;
+import com.twu.biblioteca.services.BooksService;
 
 public class CheckOutHandler implements IMenuHandler{
 
@@ -15,7 +15,7 @@ public class CheckOutHandler implements IMenuHandler{
     @Override
     public void handlerOption(int option) {
 
-        if (option == 2)
+        if (option == MenuOptions.CHECKOUT_BOOK)
             booksService.checkoutBook();
         else
             next.handlerOption(option);

@@ -1,6 +1,7 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.services;
 
 import com.twu.biblioteca.pojos.Book;
+import com.twu.biblioteca.services.BooksService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,25 +48,6 @@ public class BookServiceTest {
         int year = booksList.get(0).getYear();
 
         assertEquals(2012, year);
-    }
-
-    @Test
-    public void checkoutTest() {
-
-        Book checkedOutBook = booksList.get(0);
-        booksService.checkout(checkedOutBook);
-        List<Book> borrowedList = booksService.getBorrowedList();
-
-        assertEquals(1, borrowedList.size());
-    }
-
-    @Test
-    public void checkedOutBookShouldNotBeInAvailableBooksList() {
-
-        Book checkedOutBook = booksList.get(0);
-        booksService.checkout(checkedOutBook);
-
-        assertFalse(booksList.contains(checkedOutBook));
     }
 
 }
