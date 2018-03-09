@@ -15,7 +15,6 @@ import static org.junit.Assert.assertTrue;
 public class MovieServiceTest {
 
     private List<Movie> movieList;
-    private MovieService movieService;
 
     @Before
     public void setup() {
