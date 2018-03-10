@@ -42,7 +42,7 @@ public class Menu implements IMenuHandler {
         listMovieHandler.setMoviesService(moviesService);
 
 
-        if (userAccount.isUserSessionStarted()){
+        if (loginService.isLogin()){
 
             CheckOutHandler checkOutHandler = new CheckOutHandler();
             listMovieHandler.setNext(checkOutHandler);
@@ -80,7 +80,7 @@ public class Menu implements IMenuHandler {
             System.out.println("\n\nMENU");
             System.out.println("1.- List Books");
             System.out.println("2.- List Movies");
-            if (userAccount.isUserSessionStarted()){
+            if (loginService.isLogin()){
 
                 System.out.println("3.- Checkout Book");
                 System.out.println("4.- Checkout Movie");
