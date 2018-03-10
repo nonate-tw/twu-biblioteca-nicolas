@@ -40,4 +40,8 @@ public class LoginService {
     public void unsuccessfulLoginMessage() {
         System.out.println("Incorrect Credentials!");
     }
+
+    public void getUserInfo() {
+        System.out.println(userAccount.getUserInformation());
+    }
 }

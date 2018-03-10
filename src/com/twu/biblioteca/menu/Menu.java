@@ -3,6 +3,7 @@ package com.twu.biblioteca.menu;
 import com.twu.biblioteca.services.BooksService;
 import com.twu.biblioteca.services.LoginService;
 import com.twu.biblioteca.services.MovieService;
+import com.twu.biblioteca.users.User;
 import com.twu.biblioteca.users.UserAccount;
 
 import java.util.InputMismatchException;
@@ -57,8 +58,12 @@ public class Menu implements IMenuHandler {
             checkOutMovieHandler.setNext(returnBookHandler);
             returnBookHandler.setBooksService(booksService);
 
+            UserInformationHandler userInformationHandler = new UserInformationHandler();
+            returnBookHandler.setNext(userInformationHandler);
+            userInformationHandler.setLoginService(loginService);
+
             ExitMenuHandler exitMenuHandler = new ExitMenuHandler();
-            returnBookHandler.setNext(exitMenuHandler);
+            userInformationHandler.setNext(exitMenuHandler);
         }else{
 
             LoginUserHandler loginUserHandler = new LoginUserHandler();
@@ -85,10 +90,11 @@ public class Menu implements IMenuHandler {
                 System.out.println("3.- Checkout Book");
                 System.out.println("4.- Checkout Movie");
                 System.out.println("5.- Return Book");
+                System.out.println("6.- User Information");
             }else{
-                System.out.println("6.- Login");
+                System.out.println("7.- Login");
             }
-            System.out.println("7.- Quit");
+            System.out.println("8.- Quit");
 
 
             System.out.print("Choose an option: ");

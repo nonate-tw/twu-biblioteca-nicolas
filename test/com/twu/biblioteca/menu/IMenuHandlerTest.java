@@ -17,7 +17,8 @@ public class IMenuHandlerTest {
     private static final int CHECKOUT_BOOK = 3;
     private static final int CHECKOUT_MOVIE = 4;
     private static final int RETURN_BOOK = 5;
-    private static final int LOGIN = 6;
+    private static final int USER_INFORMATION = 6;
+    private static final int LOGIN = 7;
 
     @Test
     public void option1ShouldPrintBooksList() {
@@ -82,9 +83,21 @@ public class IMenuHandlerTest {
         Mockito.verify(mock).returnBook();
     }
 
+    @Test
+    public void option6ShouldUserInformation() {
+
+        UserInformationHandler userInformationHandler = new UserInformationHandler();
+
+        LoginService mock = Mockito.mock(LoginService.class);
+        userInformationHandler.setLoginService(mock);
+
+        userInformationHandler.handlerOption(USER_INFORMATION);
+
+        Mockito.verify(mock).getUserInfo();
+    }
 
     @Test
-    public void option6ShouldLoginUser() {
+    public void option7ShouldLoginUser() {
 
         LoginUserHandler loginUserHandler = new LoginUserHandler();
 
