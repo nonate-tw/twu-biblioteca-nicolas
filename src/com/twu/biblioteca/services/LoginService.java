@@ -37,7 +37,7 @@ public class LoginService {
         return this.isUserSessionStarted;
     }
 
-    public void unsuccessfulLoginMessage() {
+    private void unsuccessfulLoginMessage() {
         System.out.println("Incorrect Credentials!");
     }
 
